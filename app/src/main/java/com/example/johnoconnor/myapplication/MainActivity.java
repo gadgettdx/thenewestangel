@@ -13,17 +13,34 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 
-public class MainActivity extends AppCompatActivity implements LocationListener {
+public class MainActivity extends AppCompatActivity implements SensorEventListener, LocationListener {
 
 
     private TextView tvGeoLocation;
     private Button btnSendAText;
+    private TextView tvX, tvY, tvZ;
+    private Sensor sensor;
+    private SensorManager sm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        sm = (SensorManager)getSystemService(SENSOR_SERVICE);
+
+        sensor = sm.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+
+        sm.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+        tvX = (TextView) findViewById(R.id.tvXValue);
+        tvY = (TextView) findViewById(R.id.tvYValue);
+        tvZ = (TextView) findViewById(R.id.tvZValue);
 
         LocationManager lm = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -58,12 +75,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
                     String phoneNo = "3367720319";
                     String phoneNo1 = "7044908662";
-                    String sms = location.getLongitude() + " " + location.getLatitude() + " my location in Charlotte, NC";
+                    String phoneNo2 = "3362098071";
+                    
+                    String sms = "TESTING!!! Possible Crash: http://maps.google.com/maps?&z=10&q=" + location.getLatitude() + "+" + location.getLongitude()
+                            + "&ll=" + location.getLatitude() + "+" + location.getLongitude();
 
                     try {
                         SmsManager smsManager = SmsManager.getDefault();
                         smsManager.sendTextMessage(phoneNo, null, sms, null, null);
                         smsManager.sendTextMessage(phoneNo1, null, sms, null, null);
+                        smsManager.sendTextMessage(phoneNo2, null, sms, null, null);
+
 
                         Toast.makeText(getApplicationContext(), "SMS Sent!",
                                 Toast.LENGTH_LONG).show();
@@ -90,6 +112,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
 
     @Override
     public void onProviderDisabled(String s) {
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent sensorEvent) {
+        tvX.setText("X Value: " + sensorEvent.values[0]);
+        tvY.setText("Y Value: " + sensorEvent.values[1]);
+        tvZ.setText("Z Value: " + sensorEvent.values[2]);
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int i) {
 
     }
 }

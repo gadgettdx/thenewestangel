@@ -25,8 +25,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0.0 mph"
         android:id="@+id/speed"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/btnSendText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="77dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -43,7 +44,41 @@
         android:layout_height="wrap_content"
         android:text="Send TEXT"
         android:id="@+id/btnSendText"
-        android:layout_above="@+id/speed"
+        android:layout_below="@+id/my_toolbar"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="68dp" />
+        android:layout_marginTop="37dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="X Value"
+        android:id="@+id/tvXValue"
+        android:layout_below="@+id/geoLocation"
+        android:layout_alignLeft="@+id/geoLocation"
+        android:layout_alignStart="@+id/geoLocation"
+        android:layout_marginTop="32dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Y Value"
+        android:id="@+id/tvYValue"
+        android:layout_below="@+id/tvXValue"
+        android:layout_alignLeft="@+id/tvXValue"
+        android:layout_alignStart="@+id/tvXValue"
+        android:layout_marginTop="34dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Z Value"
+        android:id="@+id/tvZValue"
+        android:layout_below="@+id/tvYValue"
+        android:layout_alignLeft="@+id/tvYValue"
+        android:layout_alignStart="@+id/tvYValue"
+        android:layout_marginTop="32dp" />
+
 </RelativeLayout>
